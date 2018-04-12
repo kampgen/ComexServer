@@ -9,7 +9,7 @@
   "author": "Vinicius Kampgen",
   "license": "ISC",
   "dependencies": {
-    "mssql": "^4.1.0",
+    "mysql": "^2.15.0",
     "restify": "^7.1.1"
   }
 }
