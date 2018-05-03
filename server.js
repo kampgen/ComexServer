@@ -1,7 +1,4 @@
 var restify = require('restify');
-var mysql = require('mysql'); // MS Sql Server client
-
-
 var server = restify.createServer();
 
 
@@ -13,42 +10,27 @@ var server = restify.createServer();
 // }));
 
 
-// String de conexão do SQL
-let sqlConfig = {
-    user: 'root',
-    password: 'vsadmin',
-    host: '10.40.0.37',
-    database: 'db_test'
-}
-
-//cria conexão sql e conecta
-var connection = mysql.createConnection(sqlConfig);
-
-
-
-
 // função de teste
 function respond(req, res, next) {
   res.send('hello ' + req.params.name);
   next();
 }
 
-function conn(req, res, next) {
-    connection.connect();
-    
-    connection.query('SELECT * FROM noticias', function (error, results, fields) {
-        if (error) throw error;
-            // console.log('>> results: ', results );
-            // let string=JSON.stringify(results);
-            // console.log('>> string: ', string );
-            // let json =  JSON.parse(string);
-            // console.log('>> json: ', json);
-        connection.end();
-    res.send('Teste MySQL ' + JSON.stringify(results[0]));
-    });
-    next();
-  }
-
+// function conn(req, res, next) {
+//     connection.connect();
+//
+//     connection.query('SELECT * FROM noticias', function (error, results, fields) {
+//         if (error) throw error;
+//             // console.log('>> results: ', results );
+//             // let string=JSON.stringify(results);
+//             // console.log('>> string: ', string );
+//             // let json =  JSON.parse(string);
+//             // console.log('>> json: ', json);
+//         connection.end();
+//     res.send('Teste MySQL ' + JSON.stringify(results[0]));
+//     });
+//     next();
+//   }
 
 //END POINTS
 
@@ -56,7 +38,7 @@ function conn(req, res, next) {
 server.get('/hello/:name', respond);
 
 // Endpoint para test conexao sql
-server.get('/testesql', conn)
+// server.get('/testesql', conn)
 
 server.get('/', function(req, res, next) {
     const moment = require('moment')
@@ -68,11 +50,9 @@ server.get('/', function(req, res, next) {
     })
 })
 
-
 // Setar porta e rodar servidor
 let port = 8080;
 
 server.listen(port, function() {
     console.log('API Conexo rodando. porta: ', port);
   });
-  
