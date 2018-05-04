@@ -1,4 +1,5 @@
-var restify = require('restify');
+// var restify = require('restify');
+import restify from 'restify'
 var server = restify.createServer();
 
 
